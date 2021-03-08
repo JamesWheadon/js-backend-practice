@@ -14,8 +14,8 @@ router.get('/:id', (req, res) => {
         const fishId = parseInt(req.params.id);
         const selectFish = Fish.findById(fishId);
         res.send(selectFish);
-    } catch {
-        console.log(error);
+    } catch(err) {
+        console.log(err);
         res.status(404).send(err);
     }
 })
@@ -31,6 +31,20 @@ router.delete('/:id', (req, res) => {
     const fishToDestroy = Fish.findById(fishId);
     fishToDestroy.destroy();
     res.status(204).send();
+})
+
+router.patch('/:id', (req, res) => {
+    try {
+        const fishId = parseInt(req.params.id);
+        const fishToUpdate = Fish.findById(fishId);
+        const fishUpdataData = req.query;
+        fishToUpdate.update(fishUpdataData);
+        console.log(fishToUpdate);
+        res.send({message: `${fishToUpdate.name} successfully updated.`});
+    } catch(err) {
+        console.log(err);
+        res.status(404).send(err)
+    }
 })
 
 module.exports = router;

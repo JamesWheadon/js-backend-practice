@@ -1,4 +1,4 @@
-const fish = [
+let fish = [
     { id: 1, name: 'Marlin', weight: 820, length: 5},
     { id: 2, name: "Great White", weight: 1900, length: 4.9},
     { id: 3, name: "Whale Shark", weight: 19000, length: 14.5},

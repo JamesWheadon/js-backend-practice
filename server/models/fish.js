@@ -31,7 +31,36 @@ class Fish {
     }
 
     destroy() {
-        fishesData.splice(fishesData.indexOf(this), 1);
+        fishesData.splice(this.id - 1, 1);
+    }
+
+    update(data) {
+        console.log(fishesData);
+        for (const key of Object.keys(data)) {
+            if (key == 'weight') {
+                try {
+                    let numberData = parseFloat(data.weight);
+                    fishesData[this.id - 1].weight = numberData;
+                }
+                catch (err) {
+                    throw new Error('Must be a number for weight or length')
+                }
+            } else if (key == 'length') {
+                try {
+                    let numberData = parseFloat(data.length);
+                    fishesData[this.id - 1].length = numberData;
+                }
+                catch (err) {
+                    throw new Error('Must be a number for weight or length')
+                }
+            } else if (key == 'name') {
+                fishesData[this.id - 1].name = data.name
+            } else {
+                throw new Error('Invalid query key')
+            }
+            console.log(fishesData[4]);
+            console.log(this === fishesData[4]);
+        }
     }
 }
 

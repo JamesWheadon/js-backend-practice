@@ -23,6 +23,32 @@ class Fish {
         }
     }
 
+    findInfo(data) {
+        let fishInfo = {}
+        for (const key of Object.keys(data)) {
+            if (key == 'weight') {
+                try {
+                    fishInfo.weight = this.weight;
+                }
+                catch (err) {
+                    throw new Error('Must be a number for weight or length')
+                }
+            } else if (key == 'length') {
+                try {
+                    fishInfo.length = this.length;
+                }
+                catch (err) {
+                    throw new Error('Must be a number for weight or length')
+                }
+            } else if (key == 'name') {
+                fishInfo.name = this.name;
+            } else {
+                throw new Error('Invalid query key')
+            }
+        }
+        return fishInfo;
+    }
+
     static create(fish) {
         const newFishId = fishesData.length + 1;
         const newFish = new Fish({ id: newFishId, ...fish });
@@ -35,7 +61,6 @@ class Fish {
     }
 
     update(data) {
-        console.log(fishesData);
         for (const key of Object.keys(data)) {
             if (key == 'weight') {
                 try {
@@ -58,8 +83,6 @@ class Fish {
             } else {
                 throw new Error('Invalid query key')
             }
-            console.log(fishesData[4]);
-            console.log(this === fishesData[4]);
         }
     }
 }

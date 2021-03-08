@@ -12,8 +12,25 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     try {
         const fishId = parseInt(req.params.id);
-        const selectFish = Fish.findById(fishId);
-        res.send(selectFish);
+        let selectFish = Fish.findById(fishId);
+        if (req.query) {
+            let fishInfo = selectFish.findInfo(req.query);
+            res.send(fishInfo);
+        } else {
+            res.send(selectFish);
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(404).send(err);
+    }
+})
+
+router.get('/:id?', (req, res) => {
+    try {
+        const fishId = parseInt(req.params.id);
+        let selectFish = Fish.findById(fishId);
+        let fishInfo = selectFish.findInfo(req.query);
+        res.send(fishInfo);
     } catch(err) {
         console.log(err);
         res.status(404).send(err);

@@ -1,4 +1,4 @@
-const fishData = require('../data');
+const fishesData = require('../data');
 
 class Fish {
     constructor(data) {
@@ -9,15 +9,29 @@ class Fish {
     }
 
     static get all() {
-        const fish = fishData.map((fish) => new Fish(fish));
-        return fish;
+        const fishes = fishesData.map((fish) => new Fish(fish));
+        return fishes;
+    }
+
+    static findById(id) {
+        try {
+            const fishData = fishesData.filter((fish) => fish.id === id)[0];
+            const fish = new Fish(fishData);
+            return fish;
+        } catch (err) {
+            throw new Error('That fish does not exist.');
+        }
     }
 
     static create(fish) {
-        const newFishId = fishData.length + 1;
+        const newFishId = fishesData.length + 1;
         const newFish = new Fish({ id: newFishId, ...fish });
-        fishData.push(newFish);
+        fishesData.push(newFish);
         return newFish;
+    }
+
+    destroy() {
+        fishesData.splice(fishesData.indexOf(this), 1);
     }
 }
 

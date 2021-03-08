@@ -13,11 +13,13 @@ router.get('/:id', (req, res) => {
     try {
         const fishId = parseInt(req.params.id);
         let selectFish = Fish.findById(fishId);
-        if (req.query) {
+        if (Object.keys(req.query).length === 0) {
+            console.log("id")
+            res.send(selectFish);
+        } else {
+            console.log("query")
             let fishInfo = selectFish.findInfo(req.query);
             res.send(fishInfo);
-        } else {
-            res.send(selectFish);
         }
     } catch(err) {
         console.log(err);
